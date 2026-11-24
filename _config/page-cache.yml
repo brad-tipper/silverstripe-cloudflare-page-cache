@@ -1,0 +1,59 @@
+---
+Name: app-backend-cache
+After:
+  - '#requestprocessors'
+---
+# PSR-16 cache for the app (Silverstripe's CacheFactory; filesystem under silverstripe-cache), and the page cache
+# middleware that uses it. The page cache is on for `live` only; set `AppCache: enabled: true` to try it locally.
+SilverStripe\Core\Injector\Injector:
+  Psr\SimpleCache\CacheInterface.appBackend:
+    factory: SilverStripe\Core\Cache\CacheFactory
+    constructor:
+      namespace: 'appBackend'
+      defaultLifetime: 86400
+      # Not the versioned-stage proxy (keys would differ between the middleware and the controller), and no in-process
+      # APCu layer (a bump from a CLI task or queued job must be seen by the web workers).
+      disable-container: true
+      useInMemoryCache: false
+  SilverStripe\Control\Director:
+    properties:
+      Middlewares:
+        AppBackendPageCache: '%$BradTipper\AppBackend\Cache\PageCacheMiddleware'
+---
+Name: app-backend-cache-defaults
+---
+# Page cache lifetimes: stored 30 days, browsers 1 hour, Cloudflare 30 days. Any content change or flush busts the stored
+# pages and purges Cloudflare. A project sets its zone id under CloudflarePurge in app/_config/cache.yml.
+BradTipper\AppBackend\Cache\PageCacheMiddleware:
+  ttl: 2592000
+  browser_max_age: 3600
+  shared_max_age: 2592000
+BradTipper\AppBackend\Support\CloudflarePurge:
+  zone_id: ''
+---
+Name: app-backend-cache-live
+Only:
+  environment: live
+---
+BradTipper\AppBackend\Cache\AppCache:
+  enabled: true
+---
+Name: app-backend-cache-cms
+Only:
+  classexists: 'SilverStripe\CMS\Model\SiteTree'
+---
+# Anything edited in the CMS that shows on the public site busts the page cache.
+SilverStripe\CMS\Model\SiteTree:
+  extensions:
+    - BradTipper\AppBackend\Cache\BustsSiteCache
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - BradTipper\AppBackend\Cache\BustsSiteCache
+---
+Name: app-backend-cache-elemental
+Only:
+  classexists: 'DNADesign\Elemental\Models\BaseElement'
+---
+DNADesign\Elemental\Models\BaseElement:
+  extensions:
+    - BradTipper\AppBackend\Cache\BustsSiteCache

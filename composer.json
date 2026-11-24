@@ -1,0 +1,23 @@
+{
+    "name": "bradtipper/silverstripe-cloudflare-page-cache",
+    "description": "Full-page cache for public Silverstripe pages, busted on content changes, with Cloudflare edge purge",
+    "type": "silverstripe-vendormodule",
+    "license": "BSD-3-Clause",
+    "keywords": ["silverstripe", "cache", "cloudflare", "performance"],
+    "require": {
+        "php": "^8.3",
+        "silverstripe/framework": "^6"
+    },
+    "suggest": {
+        "innoweb/silverstripe-cookie-consent": "Cached pages vary by the visitor's consent choices",
+        "silverstripe/cms": "Page, site config and Elemental changes bust the cache"
+    },
+    "autoload": {
+        "psr-4": {
+            "BradTipper\\AppBackend\\Cache\\": "src/Cache/",
+            "BradTipper\\AppBackend\\Support\\": "src/Support/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
