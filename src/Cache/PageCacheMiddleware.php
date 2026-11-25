@@ -1,6 +1,6 @@
 <?php
 
-namespace BradTipper\AppBackend\Cache;
+namespace BradTipper\RestfulFramework\Cache;
 
 use Innoweb\CookieConsent\CookieConsent;
 use SilverStripe\Control\Director;
@@ -129,7 +129,7 @@ class PageCacheMiddleware implements HTTPMiddleware
         if ($configured !== '') {
             return $configured;
         }
-        $appConfig = 'BradTipper\AppBackend\AppConfig';
+        $appConfig = 'BradTipper\RestfulFramework\AppConfig';
         if (class_exists($appConfig)) {
             return (string) $appConfig::get('public_url');
         }
