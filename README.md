@@ -17,11 +17,11 @@ composer require bradtipper/silverstripe-cloudflare-page-cache
 ## Configure
 
 ```yaml
-BradTipper\AppBackend\Support\CloudflarePurge:
+BradTipper\RestfulFramework\Support\CloudflarePurge:
   zone_id: 'your-zone-id'
   api_token: 'token with Cache Purge permission'   # keep out of the repo, live-only config
 
-BradTipper\AppBackend\Cache\PageCacheMiddleware:
+BradTipper\RestfulFramework\Cache\PageCacheMiddleware:
   public_url: 'https://example.com'                # its host (and www.) is cached
   extra_hosts: []
   ttl: 2592000                                     # stored for 30 days
@@ -29,14 +29,14 @@ BradTipper\AppBackend\Cache\PageCacheMiddleware:
   shared_max_age: 2592000                          # Cloudflare holds pages for this long
 ```
 
-To try it outside live: `BradTipper\AppBackend\Cache\AppCache: enabled: true`.
+To try it outside live: `BradTipper\RestfulFramework\Cache\AppCache: enabled: true`.
 
 Add the cache bust to your own unversioned models that show on the public site:
 
 ```yaml
 App\Model\Testimonial:
   extensions:
-    - BradTipper\AppBackend\Cache\BustsSiteCache
+    - BradTipper\RestfulFramework\Cache\BustsSiteCache
 ```
 
 Cloudflare needs a cache rule that honours the origin's `Cache-Control` for HTML. The purge sends a single "purge everything" request per PHP request, after the response is out.

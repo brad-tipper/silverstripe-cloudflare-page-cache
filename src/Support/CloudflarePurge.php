@@ -1,6 +1,6 @@
 <?php
 
-namespace BradTipper\AppBackend\Support;
+namespace BradTipper\RestfulFramework\Support;
 
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Config\Configurable;
@@ -76,7 +76,7 @@ final class CloudflarePurge
     private static function token(): string
     {
         $token = trim((string) self::config()->get('api_token'));
-        $appConfig = 'BradTipper\AppBackend\AppConfig';
+        $appConfig = 'BradTipper\RestfulFramework\AppConfig';
         if ($token === '' && class_exists($appConfig)) {
             $token = trim((string) $appConfig::get('cloudflare_purge_token'));
         }

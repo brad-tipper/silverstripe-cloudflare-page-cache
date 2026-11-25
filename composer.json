@@ -14,8 +14,8 @@
     },
     "autoload": {
         "psr-4": {
-            "BradTipper\\AppBackend\\Cache\\": "src/Cache/",
-            "BradTipper\\AppBackend\\Support\\": "src/Support/"
+            "BradTipper\\RestfulFramework\\Cache\\": "src/Cache/",
+            "BradTipper\\RestfulFramework\\Support\\": "src/Support/"
         }
     },
     "minimum-stability": "dev",

@@ -1,6 +1,6 @@
 <?php
 
-namespace BradTipper\AppBackend\Cache;
+namespace BradTipper\RestfulFramework\Cache;
 
 use SilverStripe\Core\Flushable;
 

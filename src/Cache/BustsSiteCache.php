@@ -1,13 +1,13 @@
 <?php
 
-namespace BradTipper\AppBackend\Cache;
+namespace BradTipper\RestfulFramework\Cache;
 
 use SilverStripe\Core\Extension;
 
 /**
  * Put this on anything that appears on the public website (pages, blocks, site settings, navigation items):
  * any write, delete or publish bumps the `site` generation, so the next visitor gets a freshly rendered page
- * (and AppCache::bump purges the Cloudflare edge cache). app-backend applies it to SiteTree, Elemental blocks and
+ * (and AppCache::bump purges the Cloudflare edge cache). restful-framework applies it to SiteTree, Elemental blocks and
  * SiteConfig; a project adds it to its own block item models in website.yml.
  *
  * @extends Extension<\SilverStripe\ORM\DataObject>

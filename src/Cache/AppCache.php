@@ -1,8 +1,8 @@
 <?php
 
-namespace BradTipper\AppBackend\Cache;
+namespace BradTipper\RestfulFramework\Cache;
 
-use BradTipper\AppBackend\Support\CloudflarePurge;
+use BradTipper\RestfulFramework\Support\CloudflarePurge;
 use Psr\SimpleCache\CacheInterface;
 use SilverStripe\Core\Config\Configurable;
 use SilverStripe\Core\Injector\Injector;
@@ -23,7 +23,7 @@ final class AppCache
 {
     use Configurable;
 
-    /** Master switch for the page cache (PageCacheMiddleware). Enabled for `live` in app-backend.yml. */
+    /** Master switch for the page cache (PageCacheMiddleware). Enabled for `live` in restful-framework.yml. */
     private static bool $enabled = false;
 
     public static function store(): CacheInterface
